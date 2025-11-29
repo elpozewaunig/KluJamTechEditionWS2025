@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://33gm7rwljbbs"]
+
+[ext_resource type="Shader" uid="uid://bipornwp1hk06" path="res://assets/models/thruster_exhaust/xray_shader.gdshader" id="1_hwtj0"]
+
+[resource]
+render_priority = 1
+shader = ExtResource("1_hwtj0")
+shader_parameter/albedo = Color(0.17674336, 2.820462e-05, 0.6769208, 1)
+shader_parameter/frensel_power = 1.505
