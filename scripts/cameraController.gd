@@ -41,6 +41,7 @@ func _input(event):
 
 func _process(delta):
 	var joy_input = Input.get_vector("LookLeft", "LookRight", "LookUp", "LookDown")
+	var look_back = Input.is_action_pressed("LookBack")
 	var is_input_active = false
 	
 	if joy_input.length() > 0:
@@ -60,5 +61,12 @@ func _process(delta):
 		_current_pitch = lerp(_current_pitch, _default_pitch, return_speed * delta)
 		_current_yaw = lerp(_current_yaw, _default_yaw, return_speed * delta)
 
-	rotation_degrees.x = _current_pitch
-	rotation_degrees.y = _current_yaw
+	if (look_back):
+		rotation_degrees.x = 0
+		rotation_degrees.y = 180
+		
+	else:
+		rotation_degrees.x = _current_pitch
+		rotation_degrees.y = _current_yaw
+		
+	
