@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bcglhcauxwnwl"]
 
-[ext_resource type="Script" uid="uid://dsq6s28dc6y3a" path="res://scenes/patrol_route_manager.gd" id="1_qcgb2"]
+[ext_resource type="Script" path="res://scripts/patrol_route_manager.gd" id="1_qcgb2"]
 
 [sub_resource type="Curve3D" id="Curve3D_jo8ho"]
 closed = true
