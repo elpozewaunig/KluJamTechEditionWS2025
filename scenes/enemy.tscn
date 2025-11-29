@@ -6,6 +6,8 @@
 albedo_color = Color(0.87511, 0, 0.23506531, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_7p1mj"]
+radius = 2.0
+height = 10.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8tegq"]
 properties/0/path = NodePath(".:position")
@@ -19,6 +21,7 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_7p1mj"]
+size = Vector3(2, 2, 2)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7p1mj"]
 
@@ -44,7 +47,7 @@ mesh = SubResource("CapsuleMesh_7p1mj")
 replication_config = SubResource("SceneReplicationConfig_8tegq")
 
 [node name="FrontIndicator" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -1.0051968)
+transform = Transform3D(0.20000002, 0, 0, 0, 0.20000002, 0, 0, 0, 0.20000002, 0, 0, -5.102937)
 mesh = SubResource("BoxMesh_7p1mj")
 
 [node name="EnemyCollision" type="CollisionShape3D" parent="."]
@@ -52,8 +55,9 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0
 shape = SubResource("CapsuleShape3D_7p1mj")
 
 [node name="DetectionArea" type="Area3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_layer = 2
-collision_mask = 9
+collision_mask = 65535
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -4.001897e-09, 0.091552734)

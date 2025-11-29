@@ -73,7 +73,6 @@ func _physics_process(delta: float) -> void:
 		ATTACKING:
 			attack_player(delta)
 
-# ===== PATROL STATE =====
 func patrol(delta: float) -> void:
 	if patrol_points.is_empty():
 		return
@@ -89,7 +88,7 @@ func patrol(delta: float) -> void:
 	
 	if global_position.distance_to(target_point) < WAYPOINT_REACH_DISTANCE:
 		current_patrol_index = (current_patrol_index + 1) % patrol_points.size()
-		print("Reached waypoint %d, moving to next" % current_patrol_index)
+		# print("Reached waypoint %d, moving to next" % current_patrol_index)
 
 func chase_player(delta: float) -> void:
 	if not target_player or not is_instance_valid(target_player):
@@ -135,8 +134,7 @@ func attack_player(delta: float) -> void:
 func detect_obstacles(desired_direction: Vector3) -> Vector3:
 	var avoidance_vector = Vector3.ZERO
 	
-	# Hauptrichtung prüfen
-	var front_clear = check_ray(global_position, desired_direction, OBSTACLE_DETECT_DISTANCE)
+	var front_clear = check_asteroid_ray(global_position, desired_direction, OBSTACLE_DETECT_DISTANCE)
 	
 	if not front_clear:
 		# Hindernisse in Hauptrichtung - suche freien Weg
@@ -152,7 +150,7 @@ func detect_obstacles(desired_direction: Vector3) -> Vector3:
 			var vertical_angle = (i % 2) * 30.0 - 15.0
 			test_direction = test_direction.rotated(test_direction.cross(Vector3.UP).normalized(), deg_to_rad(vertical_angle))
 			
-			if check_ray(global_position, test_direction, OBSTACLE_DETECT_DISTANCE):
+			if check_asteroid_ray(global_position, test_direction, OBSTACLE_DETECT_DISTANCE):
 				# found unobstructed way
 				var score = test_direction.dot(desired_direction)
 				if score > best_score:
@@ -164,7 +162,8 @@ func detect_obstacles(desired_direction: Vector3) -> Vector3:
 	
 	return avoidance_vector
 
-func check_ray(from: Vector3, direction: Vector3, distance: float) -> bool:
+func check_asteroid_ray(from: Vector3, direction: Vector3, distance: float) -> bool:
+	# Shoots RayCast to check if something is in the way
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(
 		from,
