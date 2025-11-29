@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://curg5wfwg0y3w"]
+[gd_scene load_steps=17 format=3 uid="uid://curg5wfwg0y3w"]
 
 [ext_resource type="Script" uid="uid://b0g8rxgtpwr8c" path="res://scripts/levelScript.gd" id="1_in5yg"]
 [ext_resource type="PackedScene" uid="uid://c111b6l8it2x6" path="res://scenes/player.tscn" id="2_dfg5a"]
@@ -62,9 +62,6 @@ _data = {
 &"fadein": SubResource("Animation_n4611")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lpkg1"]
-size = Vector3(50, 20, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dfg5a"]
 vertex_color_is_srgb = true
 albedo_color = Color(0.91224825, 0.4228835, 0.76278186, 1)
@@ -116,13 +113,6 @@ spawn_limit = 15
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_lpkg1")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 volume_db = 0.75
