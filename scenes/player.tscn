@@ -35,7 +35,7 @@ func _process(_delta):
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhqgy"]
 albedo_texture = ExtResource("2_dqkch")
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller")]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("movement_controller") groups=["Players"]]
 script = ExtResource("1_qhqgy")
 movement_controller = NodePath("movementController")
 

@@ -1,6 +1,8 @@
 extends Node3D # Or Node2D
 
 @export var player_scene: PackedScene
+@export var enemy_scene: PackedScene 
+@onready var enemySpawner: MultiplayerSpawner = $EnemySpawner
 
 func _ready():
 	# If this is the Host, spawn existing players (like yourself)
@@ -32,3 +34,17 @@ func remove_player(peer_id):
 	var player = $Players.get_node_or_null(str(peer_id))
 	if player:
 		player.queue_free()
+		
+func spawn_enemy(spawn_position: Vector3): 
+	if not multiplayer.is_server():
+		# Only host may spawn enemies
+		return;
+
+	var enemy_instance = enemy_scene.instantiate();
+	enemy_instance.global_position = spawn_position;
+	$Enemies.add_child(enemy_instance)
+	enemy_instance.set_multiplayer_authority(1)
+	print("Spawned enemy")
+
+func _on_enemy_spawn_timer_timeout() -> void:
+	spawn_enemy(Vector3(0,0,-20))
