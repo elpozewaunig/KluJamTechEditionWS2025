@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c111b6l8it2x6"]
+[gd_scene load_steps=10 format=3 uid="uid://c111b6l8it2x6"]
 
 [ext_resource type="Script" uid="uid://cc6g7dopbnu7h" path="res://scripts/Player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://cslvlgyrpicam" path="res://_coolscene/sealtext.png" id="2_dqkch"]
 [ext_resource type="ArrayMesh" uid="uid://br5rnl4j1b3p8" path="res://_coolscene/seal.obj" id="3_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://d2snjgmsw07qr" path="res://scenes/gun.tscn" id="4_dqkch"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tuyoq"]
 albedo_texture = ExtResource("2_dqkch")
@@ -38,6 +39,9 @@ script = ExtResource("1_qhqgy")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6066658)
 
+[node name="Gun" parent="Camera3D" instance=ExtResource("4_dqkch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6497557, 1.5219879, -3.9992359)
+
 [node name="Seal2" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.371139e-09, 0, -0.10000001, 0, 0.10000001, 0, 0.10000001, 0, -4.371139e-09, 0, -0.74000025, -4.652)
 material_override = SubResource("StandardMaterial3D_tuyoq")
@@ -60,3 +64,5 @@ material_override = SubResource("StandardMaterial3D_qhqgy")
 mesh = ExtResource("3_qlg0r")
 
 [node name="movementController" type="Node3D" parent="."]
+
+[node name="Node3D" type="Node3D" parent="."]
