@@ -54,18 +54,26 @@ func _ready():
 		circle_hud.hide()
 		pitch_hud.hide()
 		speed_bar.hide()
+	
+	if multiplayer.is_server():
+		broadcast_colors()  # Send colors when game starts
 
 func take_damage(damage_amount):
 	takeDamageSignal.emit(damage_amount)
-	
-func setup_colors(primary: Color, secondary: Color):
-	primary_color = primary
-	secundary_color = secondary
-	NetworkManager.primary=primary
-	NetworkManager.secondary = secondary
-	emit_signal("newColor",primary,secondary)
 	
 func get_primary()-> Color: 
 	return primary_color
 func get_secondary()-> Color:
 	return secundary_color
+	
+func broadcast_colors():
+	var color1 = NetworkManager.primary
+	var color2 = NetworkManager.secondary
+	rpc("receive_colors", color1, color2)
+
+# On CLIENT (and HOST due to call_local)
+@rpc("any_peer", "call_local", "reliable")
+func receive_colors(primary: Color, secondary: Color):
+	primary_color = primary
+	secundary_color = secondary
+	emit_signal("newColor",primary,secondary)
