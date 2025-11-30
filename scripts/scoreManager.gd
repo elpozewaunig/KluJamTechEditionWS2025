@@ -11,6 +11,8 @@ var current_team_name = "Unnamed Team"
 signal score_updated(new_score)
 signal game_over()
 
+var game_over_signal_emmited = false
+
 func _ready():
 	current_score = 0
 	if not FileAccess.file_exists(SAVE_FILE_PATH):
@@ -28,6 +30,9 @@ func add_score(amount: int = 1):
 	rpc("sync_score", current_score)
 	
 func signal_game_over():
+	if game_over_signal_emmited:
+		return
+	game_over_signal_emmited = true
 	game_over.emit()
 
 @rpc("authority", "call_remote")
