@@ -1,47 +1,43 @@
 extends Node3D
 
 @onready var gun_ray = $RayCast3D
-
-# Ensure this matches your file path EXACTLY
 var missile_scene = load("res://scenes/Missile.tscn")
 
 func _process(_delta):
-	# Input Guard: Only the local player can request a shot
+	# Input Guard
 	if not owner.is_multiplayer_authority():
 		return
 		
 	if Input.is_action_just_pressed("shoot"):
-		# Networking Check
-		if multiplayer.is_server():
-			spawn_missile(true, gun_ray.global_position, gun_ray.global_transform.basis)
-		else:
-			rpc_id(1, "spawn_missile", false, gun_ray.global_position, gun_ray.global_transform.basis)
+		request_fire()
 
+func request_fire():
+	# Gather data
+	var pos = gun_ray.global_position
+	var rot = gun_ray.global_transform.basis
+	var is_host = (owner.name == "1")
+	
+	if multiplayer.is_server():
+		# If I am Host, tell everyone (including myself) to spawn
+		rpc("fire_event", pos, rot, is_host)
+	else:
+		# If I am Client, ask Server to broadcast the fire event
+		rpc_id(1, "request_fire_from_client", pos, rot, is_host)
+
+# Server receives Client's request, verifies it, and broadcasts to everyone
 @rpc("any_peer", "call_local")
-func spawn_missile(isHost, position, transform):
-	# Security: Only Server spawns
-	if not multiplayer.is_server(): return
+func request_fire_from_client(pos, rot, is_host):
+	if multiplayer.is_server():
+		# You could add anti-cheat checks here (e.g. check fire rate)
+		rpc("fire_event", pos, rot, is_host)
 
-	# 1. Instantiate
+# THIS RUNS ON EVERYONE (Host and Client)
+@rpc("call_local", "reliable")
+func fire_event(pos, rot, is_host):
 	var missile = missile_scene.instantiate()
 	
-	# 2. Force Unique Name (PREVENTS "Node Not Found" ERRORS)
-	missile.name = "M_%d" % randi()
+	# Add to the Level scene so it doesn't move with the player
+	get_node("/root/LevelScene/Bullets").add_child(missile)
 	
-	# 3. Find Container
-	var container = get_node("/root/LevelScene/Bullets/")
-	if not container:
-		printerr("Gun Error: No 'Bullets' node found in LevelScene")
-		return
-
-	# 4. Add Child (Networked)
-	container.add_child(missile, true)
-	
-	# 5. Position & Rotation
-	missile.global_position = position
-	missile.global_transform.basis = transform
-	
-	# 6. Setup Logic
-	# owner.name == "1" checks if the shooter is the Host
-	if missile.has_method("setup_server_logic"):
-		missile.setup_server_logic(isHost)
+	# Setup immediately
+	missile.setup_missile(pos, rot, is_host)
