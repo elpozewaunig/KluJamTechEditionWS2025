@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var gun_ray = $RayCast3D
+# Ensure this points to the new PHYSICS-ONLY missile (no sync node)
 var missile_scene = load("res://scenes/Missile.tscn")
 
 func _process(_delta):
@@ -12,32 +13,41 @@ func _process(_delta):
 		request_fire()
 
 func request_fire():
-	# Gather data
 	var pos = gun_ray.global_position
 	var rot = gun_ray.global_transform.basis
 	var is_host = (owner.name == "1")
 	
 	if multiplayer.is_server():
-		# If I am Host, tell everyone (including myself) to spawn
+		# I am Host: Broadcast directly
 		rpc("fire_event", pos, rot, is_host)
 	else:
-		# If I am Client, ask Server to broadcast the fire event
+		# I am Client: Ask Server to broadcast
 		rpc_id(1, "request_fire_from_client", pos, rot, is_host)
 
-# Server receives Client's request, verifies it, and broadcasts to everyone
+# -------------------------------------------------------------
+# 1. THE REQUEST (Runs on Server)
+# "any_peer" allows the Client to call this on the Server
+# -------------------------------------------------------------
 @rpc("any_peer", "call_local")
 func request_fire_from_client(pos, rot, is_host):
+	# Security check: Only run this if I am the server
 	if multiplayer.is_server():
-		# You could add anti-cheat checks here (e.g. check fire rate)
+		# Broadcast to everyone
 		rpc("fire_event", pos, rot, is_host)
 
-# THIS RUNS ON EVERYONE (Host and Client)
-@rpc("call_local", "reliable")
+# -------------------------------------------------------------
+# 2. THE EVENT (Runs on Everyone)
+# "any_peer" is CRITICAL here! 
+# It allows the Server (ID 1) to execute this function on the 
+# Client's machine (ID 12345), even though the Client owns the node.
+# -------------------------------------------------------------
+@rpc("any_peer", "call_local")
 func fire_event(pos, rot, is_host):
 	var missile = missile_scene.instantiate()
 	
-	# Add to the Level scene so it doesn't move with the player
+	# Add to Level so it doesn't move with the ship
 	get_node("/root/LevelScene/Bullets").add_child(missile)
 	
-	# Setup immediately
-	missile.setup_missile(pos, rot, is_host)
+	# Setup physics immediately
+	if missile.has_method("setup_missile"):
+		missile.setup_missile(pos, rot, is_host)
