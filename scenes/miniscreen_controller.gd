@@ -4,3 +4,8 @@ func _on_zoomin():
 	$Menu.show()
 	$PRESSTART.hide()
 	$Menu/HostGameBTN.grab_focus()
+
+signal zoomout
+
+func _zoomout():
+	zoomout.emit()

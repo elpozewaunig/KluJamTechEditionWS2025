@@ -597,6 +597,7 @@ position = Vector2(590.26196, 502.19867)
 scale = Vector2(1.6113886, 0.6932225)
 texture = ExtResource("2_e87qj")
 
+[connection signal="pressed" from="Menu/JoinGameBTN" to="." method="_zoomout"]
 [connection signal="pressed" from="Menu/CreditsBTN" to="Credits" method="_on_options_btn_pressed"]
 [connection signal="pressed" from="Menu/OptionsBTN" to="Options" method="_on_options_btn_pressed"]
 [connection signal="pressed" from="Tutorial/ACKTutorialBTN" to="." method="_on_button_pressed"]
