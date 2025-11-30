@@ -24,3 +24,4 @@ shape = SubResource("SphereShape3D_7880j")
 
 [node name="LifeTimer" type="Timer" parent="."]
 wait_time = 2.0
+autostart = true
