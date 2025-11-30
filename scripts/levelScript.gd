@@ -66,9 +66,6 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	spawn_enemy()
 
 func on_game_over():
-	#TODO: maybe not the best decision will see later if animationPlayer gets fucked
-	set_deferred("process_mode", Node.PROCESS_MODE_DISABLED)
-	
 	if not multiplayer.is_server():
 		return
 	
@@ -77,12 +74,15 @@ func on_game_over():
 	rpc("display_game_over_ui")
 	
 	# -> Wait 
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(4.0).timeout
 	rpc("return_to_main_menu")
 
 @rpc("call_local", "reliable")
 func display_game_over_ui():
-	#TODO: Explosion
+	if ($Players.get_child_count() > 0):
+		$Players.get_child(0).get_child(-1).explode()
+	if ($Players.get_child_count() > 1):
+		$Players.get_child(1).get_child(-1).explode()
 	print("GAME OVER")
 
 @rpc("call_local", "reliable")

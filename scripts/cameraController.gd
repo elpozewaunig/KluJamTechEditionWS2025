@@ -65,8 +65,8 @@ func _process(delta):
 	var look_back = Input.is_action_pressed("LookBack")
 	
 	if (ScoreManager.game_over_signal_emmited):
-		joy_input = 0
-		look_back = 0
+		joy_input = Vector2.ZERO
+		look_back = false
 		
 	var is_input_active = false
 	
