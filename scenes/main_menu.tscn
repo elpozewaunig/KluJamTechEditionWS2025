@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://btbnj4v1qq3v1" path="res://assets/skybox/bg2.png" id="2_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://cayw6362tw6y1" path="res://assets/skybox/cockpit.png" id="2_wu84c"]
 [ext_resource type="Material" uid="uid://dg1x6fpusyufh" path="res://assets/shaders/scanline.tres" id="3_wu84c"]
-[ext_resource type="PackedScene" uid="uid://tq2sekgu7c8" path="res://scenes/miniscreen.tscn" id="4_8ln24"]
+[ext_resource type="PackedScene" uid="uid://dp3rvhbvdll7k" path="res://scenes/miniscreen.tscn" id="4_8ln24"]
 [ext_resource type="AudioStream" uid="uid://mn1w3ulxq6jq" path="res://assets/sounds/warp_start.wav" id="7_oa1go"]
 
 [sub_resource type="Animation" id="Animation_5dd4i"]
@@ -520,6 +520,9 @@ scale = Vector2(157.661, 83.9539)
 texture = SubResource("GradientTexture2D_oa1go")
 
 [connection signal="zoomout" from="FG/SubViewport/Control" to="Node2D/Camera2D" method="_on_control_zoomout"]
+[connection signal="focus_entered" from="FG/SubViewport/Control/HOSTINGASHOST/LineEdit" to="FG/SubViewport/Control/HOSTINGASHOST" method="_on_line_edit_focus_entered"]
+[connection signal="focus_entered" from="FG/SubViewport/Control/HOSTINGASHOST/LineEdit2" to="FG/SubViewport/Control/HOSTINGASHOST" method="_on_line_edit_2_focus_entered"]
+[connection signal="focus_entered" from="FG/SubViewport/Control/HOSTINGASHOST/LineEdit3" to="FG/SubViewport/Control/HOSTINGASHOST" method="_on_line_edit_3_focus_entered"]
 [connection signal="zoom_in" from="Node2D/Camera2D" to="FG/SubViewport/Control" method="_on_zoomin"]
 
 [editable path="FG/SubViewport/Control"]
