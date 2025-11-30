@@ -65,7 +65,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_rtw2f"]
 resource_name = "jigglergb"
-length = 8.1525
+length = 23.732
 loop_mode = 1
 step = 0.0
 tracks/0/type = "value"
@@ -75,10 +75,10 @@ tracks/0/path = NodePath(".:material:shader_parameter/rgb_offset_uv")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5709455, 0.6101601, 0.7042787, 1.4253291, 1.4477018, 1.4837841, 2.0401247, 2.0624974, 2.0985796, 2.687702, 2.7100747, 2.746157, 3.4267719, 3.4822462, 3.5436647, 4.000557, 4.0229297, 4.059012, 4.607065, 4.6625395, 4.7239575, 5.355327, 5.3777, 5.413782, 6.0542536, 6.109728, 6.1711464, 6.7100973, 6.7655716, 6.8269897, 7.510716, 7.5330887, 7.569171),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1.3209455, 1.3601601, 1.4542787, 2.1753292, 2.197702, 2.2337842, 2.7901247, 2.8124974, 2.8485796, 5.857702, 5.8800745, 5.916157, 6.596772, 6.6522465, 6.713665, 9.010557, 9.032929, 9.069012, 9.617065, 9.67254, 9.733957, 13.555327, 13.577701, 13.613783, 16.826561, 16.882036, 16.943455, 17.482407, 17.53788, 17.599297, 18.283024, 18.305397, 18.34148, 21.821737, 21.84411, 21.880192, 22.560808, 22.616282, 22.6777),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.002, 0.002, 0.057, 0.002, 0.002, 0.005, 0.002, 0.002, 0.005, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002, 0.002, -0.002, 0.002, 0.002, 0.005, 0.002]
+"values": [0.002, 0.002, 0.057, 0.002, 0.002, 0.005, 0.002, 0.002, 0.005, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002, 0.002, -0.002, 0.002, 0.002, 0.005, 0.002, 0.002, 0.005, 0.002, 0.002, -0.002, 0.002]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tbmy8"]
@@ -256,7 +256,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.20000002, 1.2666667),
 "transitions": PackedFloat32Array(1, 0.1961461),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-4548.405, 951.81)]
+"values": [Vector2(0, 0), Vector2(-4248.405, 951.81)]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -295,10 +295,10 @@ tracks/1/path = NodePath(".:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.100000024, 2.4666667),
+"times": PackedFloat32Array(0, 2.4666667),
 "transitions": PackedFloat32Array(0.1961461, 1),
 "update": 0,
-"values": [Vector2(-4548.405, 951.81), Vector2(0, 0)]
+"values": [Vector2(-4248.405, 951.81), Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -436,6 +436,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_tbmy8")
 }
 autoplay = "jigglergb"
+speed_scale = 0.75
 
 [node name="SubViewport" type="SubViewport" parent="FG"]
 size = Vector2i(1200, 1000)

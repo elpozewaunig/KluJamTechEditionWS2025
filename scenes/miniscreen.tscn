@@ -1,10 +1,79 @@
-[gd_scene load_steps=6 format=3 uid="uid://dp3rvhbvdll7k"]
+[gd_scene load_steps=11 format=3 uid="uid://dp3rvhbvdll7k"]
 
 [ext_resource type="Script" uid="uid://ojikmh0bkwii" path="res://scenes/miniscreen_controller.gd" id="1_4qlu7"]
 [ext_resource type="Theme" uid="uid://540k58tsq54u" path="res://scenes/orangetheme.tres" id="1_j2igt"]
 [ext_resource type="Texture2D" uid="uid://mem4hsrigu8e" path="res://assets/font/placeholder.jpg" id="2_e87qj"]
 [ext_resource type="Texture2D" uid="uid://bwqjr8hrqdd33" path="res://assets/sprites/opsec und so.png" id="3_l6gtq"]
 [ext_resource type="FontFile" uid="uid://d304xnpnbruf4" path="res://assets/font/DSEG14-Classic/DSEG14Classic-Regular.ttf" id="3_oua23"]
+
+[sub_resource type="GDScript" id="GDScript_j7o8s"]
+resource_name = "gurber"
+script/source = "extends Panel
+
+
+func _on_returnfromcreditsbtn_pressed() -> void:
+	$HostGameBTN.grab_focus()
+	$QuitGameBTN.resetbtn()
+
+func _on_returnfromoptions_pressed() -> void:
+	$HostGameBTN.grab_focus()
+	$QuitGameBTN.resetbtn()
+"
+
+[sub_resource type="GDScript" id="GDScript_vocgd"]
+resource_name = "eject"
+script/source = "extends Button
+var usure = false
+func _pressed() -> void:
+	if not usure:
+		text = \"u sure?\"
+		usure = true
+	else:
+		get_tree().quit()
+func resetbtn():
+	usure = false
+	text = \"[!] EJECT\"
+func _init() -> void:
+	resetbtn()	
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_lt044"]
+resource_name = "makevis"
+script/source = "extends Panel
+
+
+func _on_options_btn_pressed() -> void:
+	show()
+	$RETURNFROMCREDITSBTN.grab_focus()
+
+
+func _on_returnfromcreditsbtn_pressed() -> void:
+	hide()
+"
+
+[sub_resource type="GDScript" id="GDScript_qm21r"]
+resource_name = "garuber"
+script/source = "extends Panel
+
+
+func _on_returnfromoptions_pressed() -> void:
+	hide()
+
+
+func _on_options_btn_pressed() -> void:
+	show()
+	$RETURNFROMOPTIONS.grab_focus()
+"
+
+[sub_resource type="GDScript" id="GDScript_oua23"]
+resource_name = "makevisible"
+script/source = "extends Panel
+
+
+func _on_ack_tutorial_btn_pressed() -> void:
+	show()
+"
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -17,7 +86,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4qlu7")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PRESSTART" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +95,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_j2igt")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PRESSTART"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -75,7 +144,7 @@ text = "
                                                                                                                            
                                                                                                                            "
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Panel"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="PRESSTART"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -123,7 +192,7 @@ text = "
                                                                                                                            
                                                                                                                            "
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="Panel"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="PRESSTART"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -139,7 +208,7 @@ theme_override_fonts/normal_font = ExtResource("3_oua23")
 theme_override_font_sizes/normal_font_size = 30
 text = "- PRESS  START -"
 
-[node name="Panel3" type="Panel" parent="."]
+[node name="Menu" type="Panel" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -148,8 +217,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_j2igt")
+script = SubResource("GDScript_j7o8s")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel3"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -173,7 +243,7 @@ text = "[ OK ] TUNNEL MARGIN THRESHOLD ADJUSTED
 [ WARN ] JAM PROCESS TERMINATED WITH ERROR EXIT CODE 1; 'SUBMISSION STATUS: INCOMPLETE'
 [ ERR ] Stacktrace fetched to MFD "
 
-[node name="HostGameBTN" type="Button" parent="Panel3"]
+[node name="HostGameBTN" type="Button" parent="Menu"]
 layout_mode = 0
 offset_left = 866.0
 offset_top = 115.0
@@ -183,7 +253,7 @@ focus_neighbor_top = NodePath("../QuitGameBTN")
 focus_neighbor_bottom = NodePath("../JoinGameBTN")
 text = "Host"
 
-[node name="JoinGameBTN" type="Button" parent="Panel3"]
+[node name="JoinGameBTN" type="Button" parent="Menu"]
 layout_mode = 0
 offset_left = 876.0
 offset_top = 179.0
@@ -193,7 +263,7 @@ focus_neighbor_top = NodePath("../HostGameBTN")
 focus_neighbor_bottom = NodePath("../CreditsBTN")
 text = "Join"
 
-[node name="CreditsBTN" type="Button" parent="Panel3"]
+[node name="CreditsBTN" type="Button" parent="Menu"]
 layout_mode = 0
 offset_left = 867.0
 offset_top = 252.0
@@ -203,7 +273,7 @@ focus_neighbor_top = NodePath("../JoinGameBTN")
 focus_neighbor_bottom = NodePath("../OptionsBTN")
 text = "INFO"
 
-[node name="OptionsBTN" type="Button" parent="Panel3"]
+[node name="OptionsBTN" type="Button" parent="Menu"]
 layout_mode = 0
 offset_left = 942.0
 offset_top = 294.0
@@ -213,7 +283,7 @@ focus_neighbor_top = NodePath("../CreditsBTN")
 focus_neighbor_bottom = NodePath("../QuitGameBTN")
 text = "CONF"
 
-[node name="QuitGameBTN" type="Button" parent="Panel3"]
+[node name="QuitGameBTN" type="Button" parent="Menu"]
 layout_mode = 0
 offset_left = 848.0
 offset_top = 350.0
@@ -222,8 +292,9 @@ offset_bottom = 394.0
 focus_neighbor_top = NodePath("../OptionsBTN")
 focus_neighbor_bottom = NodePath("../HostGameBTN")
 text = "[!] EJECT"
+script = SubResource("GDScript_vocgd")
 
-[node name="Panel2" type="Panel" parent="."]
+[node name="Tutorial" type="Panel" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -238,7 +309,7 @@ grow_vertical = 2
 scale = Vector2(0.8403049, 0.8403049)
 theme = ExtResource("1_j2igt")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Tutorial"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -254,7 +325,7 @@ theme_override_fonts/normal_font = ExtResource("3_oua23")
 theme_override_font_sizes/normal_font_size = 30
 text = "MISSION  OBJECTIVE  UPDATED"
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Panel2"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -270,7 +341,7 @@ text = "OPFOR SIGNAL SCRAMBLING DETECTED. SENSOR RENDERED INCOMPLETE  - COMPLEME
 >> CALLOUT INCOMING HOSTILES TO WINGMAN. THEY ARE IMMUNE TO YOU AND INVISIBLE TO HIM <<
 CODE: ARRANGE. COOrdinate.  NEUTRALIZE."
 
-[node name="ACKTutorialBTN" type="Button" parent="Panel2"]
+[node name="ACKTutorialBTN" type="Button" parent="Tutorial"]
 layout_mode = 0
 offset_left = 934.18475
 offset_top = 669.9949
@@ -279,12 +350,12 @@ offset_bottom = 753.9949
 theme_override_font_sizes/font_size = 75
 text = "   >>ACK<<   "
 
-[node name="OpsecUndSo" type="Sprite2D" parent="Panel2"]
+[node name="OpsecUndSo" type="Sprite2D" parent="Tutorial"]
 position = Vector2(588, 350)
 scale = Vector2(0.45610672, 0.45610672)
 texture = ExtResource("3_l6gtq")
 
-[node name="Panel4" type="Panel" parent="."]
+[node name="Credits" type="Panel" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -298,8 +369,189 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8403049, 0.8403049)
 theme = ExtResource("1_j2igt")
+script = SubResource("GDScript_lt044")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel4"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 455.78687
+offset_top = 270.13998
+offset_right = 699.78687
+offset_bottom = 270.1399
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75156784, 0.75156784)
+theme_override_font_sizes/normal_font_size = 70
+text = "
+-- Code -- 
+W0Lphi
+Tobishreds
+"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 618.823
+offset_top = 270.14005
+offset_right = 862.823
+offset_bottom = 270.14
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7515678, 0.7515678)
+theme_override_font_sizes/normal_font_size = 70
+text = "
+-- Art --
+PORTAR
+Seal
+"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 761.6283
+offset_top = 270.14
+offset_right = 1005.6279
+offset_bottom = 270.14
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75156784, 0.75156784)
+theme_override_font_sizes/normal_font_size = 70
+text = "
+-- Music & Sound --
+CUCU
+-- Additional Help --
+Xtoph"
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 452.2168
+offset_top = 198.73738
+offset_right = 696.2168
+offset_bottom = 198.73743
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75156784, 0.75156784)
+theme_override_font_sizes/normal_font_size = 70
+text = "Q1 Studios - KLUJAM Tech edition  NOV 2025
+Made with Love, Godot and Caffeine"
+
+[node name="RETURNFROMCREDITSBTN" type="Button" parent="Credits"]
+layout_mode = 0
+offset_left = 134.47491
+offset_top = 104.72389
+offset_right = 387.47498
+offset_bottom = 188.72389
+theme_override_font_sizes/font_size = 75
+text = "<< return >>"
+
+[node name="OpsecUndSo" type="Sprite2D" parent="Credits"]
+position = Vector2(1103.171, 2054.0164)
+rotation = 1.5707964
+scale = Vector2(2.2445862, 2.2445862)
+texture = ExtResource("3_l6gtq")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 172.55643
+offset_top = 572.4112
+offset_right = 416.55615
+offset_bottom = 572.41113
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.55029315, 0.5502932, 0.55029315, 1)
+theme_override_fonts/normal_font = ExtResource("3_oua23")
+theme_override_font_sizes/normal_font_size = 90
+text = "CREDITS"
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 165.41617
+offset_top = 573.6013
+offset_right = 409.4159
+offset_bottom = 573.6013
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_oua23")
+theme_override_font_sizes/normal_font_size = 90
+text = "CREDITS"
+
+[node name="Options" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 106.0
+offset_top = 51.000004
+offset_right = 106.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8403049, 0.8403049)
+theme = ExtResource("1_j2igt")
+script = SubResource("GDScript_qm21r")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 154.70575
+offset_top = 247.52917
+offset_right = 398.7058
+offset_bottom = 247.52905
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75156784, 0.75156784)
+theme_override_font_sizes/normal_font_size = 70
+text = "<Option Menu incomplete>
+
+
+please ascribe additional points to submission for adhering to theme
+"
+
+[node name="RETURNFROMOPTIONS" type="Button" parent="Options"]
+layout_mode = 0
+offset_left = 134.47491
+offset_top = 104.72389
+offset_right = 387.47498
+offset_bottom = 188.72389
+theme_override_font_sizes/font_size = 75
+text = "<< return >>"
+
+[node name="Customize" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 106.0
+offset_top = 51.000004
+offset_right = 106.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8403049, 0.8403049)
+theme = ExtResource("1_j2igt")
+script = SubResource("GDScript_oua23")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Customize"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -315,7 +567,7 @@ theme_override_fonts/normal_font = ExtResource("3_oua23")
 theme_override_font_sizes/normal_font_size = 30
 text = "PILOT  PREFERENCES"
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Panel4"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Customize"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -331,7 +583,7 @@ theme_override_font_sizes/normal_font_size = 25
 text = "NAME?
 COLOR?"
 
-[node name="StartGameBTN" type="Button" parent="Panel4"]
+[node name="StartGameBTN" type="Button" parent="Customize"]
 layout_mode = 0
 offset_left = 934.18475
 offset_top = 669.9949
@@ -340,10 +592,17 @@ offset_bottom = 753.9949
 theme_override_font_sizes/font_size = 75
 text = "   >>ACK<<   "
 
-[node name="Placeholder" type="Sprite2D" parent="Panel4"]
+[node name="Placeholder" type="Sprite2D" parent="Customize"]
 position = Vector2(590.26196, 502.19867)
 scale = Vector2(1.6113886, 0.6932225)
 texture = ExtResource("2_e87qj")
 
-[connection signal="pressed" from="Panel2/ACKTutorialBTN" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Panel4/StartGameBTN" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Menu/CreditsBTN" to="Credits" method="_on_options_btn_pressed"]
+[connection signal="pressed" from="Menu/OptionsBTN" to="Options" method="_on_options_btn_pressed"]
+[connection signal="pressed" from="Tutorial/ACKTutorialBTN" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Tutorial/ACKTutorialBTN" to="Customize" method="_on_ack_tutorial_btn_pressed"]
+[connection signal="pressed" from="Credits/RETURNFROMCREDITSBTN" to="Menu" method="_on_returnfromcreditsbtn_pressed"]
+[connection signal="pressed" from="Credits/RETURNFROMCREDITSBTN" to="Credits" method="_on_returnfromcreditsbtn_pressed"]
+[connection signal="pressed" from="Options/RETURNFROMOPTIONS" to="Menu" method="_on_returnfromoptions_pressed"]
+[connection signal="pressed" from="Options/RETURNFROMOPTIONS" to="Options" method="_on_returnfromoptions_pressed"]
+[connection signal="pressed" from="Customize/StartGameBTN" to="." method="_on_button_pressed"]
