@@ -28,14 +28,14 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("RocketLauncher")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.382683, 0.92388, 1, 1, -0.0320221, -0.0773082, 0.381341, 0.920639, 3, 1, -0.0320221, -0.0773082, 0.381341, 0.920639, 4, 1, 0, 0, 0.382683, 0.92388)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.382683, 0.92388, 1, 1, -0.0320221, -0.0773082, 0.381341, 0.920639, 1.5, 1, -0.0320221, -0.0773082, 0.381341, 0.920639, 2.5, 1, 0, 0, 0.382683, 0.92388)
 tracks/1/type = "rotation_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("RocketLauncher2")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0.0333333, 1, 0, 0, 0.382683, 0.92388, 1, 1, -0.0773082, 0.0320221, 0.381341, 0.920639, 3, 1, -0.0773082, 0.0320221, 0.381341, 0.920639, 4, 1, 0, 0, 0.382683, 0.92388)
+tracks/1/keys = PackedFloat32Array(0.0333333, 1, 0, 0, 0.382683, 0.92388, 1, 1, -0.0773082, 0.0320221, 0.381341, 0.920639, 1.5, 1, -0.0773082, 0.0320221, 0.381341, 0.920639, 2.5, 1, 0, 0, 0.382683, 0.92388)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mrcso"]
 _data = {
