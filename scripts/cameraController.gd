@@ -36,7 +36,7 @@ var _is_using_mouse := false
 var _default_pitch := 0.0
 var _default_yaw := 0.0
 var _default_spring_length
-var shortened_spring_length = 14
+var shortened_spring_length = 8
 
 func _ready():
 	add_excluded_object(get_parent().get_rid())
@@ -86,18 +86,10 @@ func _process(delta):
 		rotation_degrees.x = -5 
 		rotation_degrees.y = 180
 		spring_length = shortened_spring_length
-		point_display.hide()
-		circle_hud.hide()
-		pitch_hud.hide()
-		speed_bar.hide()
 	else:
 		rotation_degrees.x = _current_pitch
 		rotation_degrees.y = _current_yaw
 		spring_length = _default_spring_length
-		point_display.show()
-		circle_hud.show()
-		pitch_hud.show()
-		speed_bar.show()
 	if not player or not camera:
 		return
 	var speed = player.velocity.length()
