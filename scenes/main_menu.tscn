@@ -258,6 +258,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../MusicPlayer:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-10.0]
+}
 
 [sub_resource type="Animation" id="Animation_wu84c"]
 resource_name = "zoom"
@@ -417,6 +429,18 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0.96666664)
 }
 tracks/8/use_blend = true
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../MusicPlayer:volume_db")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(3, 5.733333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-10.0, -80.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ln24"]
 _data = {
@@ -529,8 +553,9 @@ visible = false
 scale = Vector2(157.661, 83.9539)
 texture = SubResource("GradientTexture2D_oa1go")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_tbmy8")
+volume_db = -10.0
 autoplay = true
 parameters/looping = true
 
